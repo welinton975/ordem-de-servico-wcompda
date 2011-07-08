@@ -16,14 +16,12 @@ import java.sql.SQLException;
 public class JDBCPecaDao {
     
     protected Connection conn;
-    protected int proximoId;
-    
+        
     public void inserirPeca(Peca peca) throws SQLException{
         Statement st = conn.createStatement();
         Peca p = peca;
         String sql = ("insert into peca values ('" + p.getNome() + "'," +
                 p.getQuantidade() + "," + p.getPreco() + ");");
-        System.out.println(sql);
         st.executeUpdate(sql);
         conn.commit();
     }
