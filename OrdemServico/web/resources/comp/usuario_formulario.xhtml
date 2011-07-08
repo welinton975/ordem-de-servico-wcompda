@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </h:head>
+    <h:body>
+        <composite:interface>
+            <composite:attribute name="object" required="true" />
+        </composite:interface>
+        <composite:implementation>
+            <p>
+                Nome:
+                <p:inputText id="nome" value="#{cc.attrs.object.nome}"/>
+            </p>
+
+            <p>
+                E-mail:
+                <p:inputText id="email" value="#{cc.attrs.object.email}"/>
+            </p>
+
+            <p>
+                Senha:
+                <p:inputText id="senha" value="#{cc.attrs.object.senha}"/>
+            </p>
+        </composite:implementation>
+    </h:body>
+</html>
+
