@@ -51,6 +51,7 @@ public abstract class JDBCUsuarioDao implements UsuarioDao {
     }
 
     public void preencherUsuario(Usuario usuario, ResultSet rs) throws SQLException{
+        usuario.setId(rs.getInt("idUsuario"));
         usuario.setNome(rs.getString("nome"));
         usuario.setEmail(rs.getString("email"));
         usuario.setSenha(rs.getString("senha"));
