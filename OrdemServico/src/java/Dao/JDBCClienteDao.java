@@ -24,7 +24,7 @@ public class JDBCClienteDao extends JDBCUsuarioDao {
     @Override
     public Usuario buscarUsuario(int id) throws SQLException {
         Statement st = conn.createStatement();
-        String sql = "select nome, email, senha, data_cadastro, contato, cnpj, insc_estadual, endereco, complemento, bairro, "
+        String sql = "select idUsuario, nome, email, senha, data_cadastro, contato, cnpj, insc_estadual, endereco, complemento, bairro, "
                 + "cidade, estado, cep, telefone, fax, observacao "
                 + "from usuario, cliente "
                 + "where cliente.idCliente = " + id + " and cliente.idCliente = usuario.idUsuario";
@@ -39,11 +39,12 @@ public class JDBCClienteDao extends JDBCUsuarioDao {
     @Override
     public ArrayList<Usuario> buscarTodos() throws SQLException {
         Statement st = conn.createStatement();
-        String sql = "select nome, email, senha, data_cadastro, contato, cnpj, insc_estadual, endereco, complemento, bairro, "
+        String sql = "select idUsuario, nome, email, senha, data_cadastro, contato, cnpj, insc_estadual, endereco, complemento, bairro, "
                 + "cidade, estado, cep, telefone, fax, observacao "
                 + "from usuario, cliente "
                 + "where cliente.idCliente = usuario.idUsuario";
         ResultSet rs = st.executeQuery(sql);
+        System.out.println(sql);
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
         while (rs.next()) {
             Cliente c = new Cliente();

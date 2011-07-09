@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.prime.com.tr/ui">
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:body>
         <!-- esta página utiliza como template o tema "template.xhtml" -->
         <ui:composition template="template.xhtml">
@@ -13,70 +14,81 @@
             <ui:define name="conteudo">
                 <p style="margin-top: 10px">
                     <img src="images/user.png" style="float:left; margin-right: 14px; margin-top: -10px"/>
-                    <h1>Cadastro de Cliente</h1><br/>
+                    <h1>Gerenciamento de Clientes</h1><br/>
                 </p>
-                <p:panel header="">
+
                 <h:form id="form">
                     <p:growl id="growl" showDetail="true" life="10000" />
+                    Escolha um cliente:
+                    <h:selectOneMenu id="clientes"  value="#{ClienteController.idUsuario}" style="margin-bottom: 20px; margin-left: 10px">
+                        <f:selectItem itemLabel="Inserir Cliente" itemValue="0"/>
+                        <f:selectItems value="#{ClienteController.clienteTree}" />
+                        <p:ajax update="cliente" listener="#{ClienteController.carregarUsuario}"/>
+                    </h:selectOneMenu>
+                    <h:panelGroup>
+                        <h:panelGrid id="cliente" columns="2" border="0" cellpadding="5px">
+                            Nome:
+                            <p:inputText id="nome" value="#{ClienteController.cliente.nome}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo Nome obrigatório"/>
+                            E-mail:
+                            <p:inputText id="email" value="#{ClienteController.cliente.email}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo E-mail obrigatório"/>
+                            Senha:
+                            <p:inputText id="senha" value="#{ClienteController.cliente.senha}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo Senha obrigatório"/>
+                            Contato:
+                            <p:inputText id="contato" value="#{ClienteController.cliente.contato}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo Contato obrigatório"/>
+                            CNPJ:
+                            <p:inputText id="cnpj" value="#{ClienteController.cliente.cnpj}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo CNPJ obrigatório"/>
+                            Inscrição Estadual:
+                            <p:inputText id="insc_estadual" value="#{ClienteController.cliente.inscricaoEstadual}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo Inscrição Estadual obrigatório"/>
+                            Endereço:
+                            <p:inputText id="endereco" value="#{ClienteController.cliente.endereco}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo Endereço obrigatório"/>
+                            Complemento:
+                            <p:inputText id="complemento" value="#{ClienteController.cliente.complemento}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo Complemento obrigatório"/>
+                            Bairro:
+                            <p:inputText id="bairro" value="#{ClienteController.cliente.bairro}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo Bairro obrigatório"/>
+                            Cidade:
+                            <p:inputText id="cidade" value="#{ClienteController.cliente.cidade}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo Cidade obrigatório"/>
+                            Estado:
+                            <p:inputText id="estado" value="#{ClienteController.cliente.estado}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo Estado obrigatório"/>
+                            Cep:
+                            <p:inputText id="cep" value="#{ClienteController.cliente.cep}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo Cep obrigatório"/>
+                            Telefone:
+                            <p:inputText id="telefone" value="#{ClienteController.cliente.telefone}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo Telefone obrigatório"/>
+                            Telefone Fax:
+                            <p:inputText id="fax" value="#{ClienteController.cliente.fax}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo Telefone Fax obrigatório"/>
+                            Observação:
+                            <p:inputTextarea id="observacao" value="#{ClienteController.cliente.observacao}" autoResize="false"
+                                             effectDuration="1000" maxHeight="200" style="width:428px;height:100px;"
+                                             required="true" requiredMessage="Campo Observação obrigatório"/>
 
-                    <h:panelGrid columns="2" border="0" cellpadding="5px">
-                        Nome:
-                        <p:inputText id="nome" value="#{ClienteController.cliente.nome}" styleClass="form_tabela"
-                                     required="true" requiredMessage="Campo Nome obrigatório"/>
-                        E-mail:
-                        <p:inputText id="email" value="#{ClienteController.cliente.email}" styleClass="form_tabela"
-                                     required="true" requiredMessage="Campo E-mail obrigatório"/>
-                        Senha:
-                        <p:inputText id="senha" value="#{ClienteController.cliente.senha}" styleClass="form_tabela"
-                                     required="true" requiredMessage="Campo Senha obrigatório"/>
-                        Contato:
-                        <p:inputText id="contato" value="#{ClienteController.cliente.contato}" styleClass="form_tabela"
-                                     required="true" requiredMessage="Campo Contato obrigatório"/>
-                        CNPJ:
-                        <p:inputText id="cnpj" value="#{ClienteController.cliente.cnpj}" styleClass="form_tabela"
-                                     required="true" requiredMessage="Campo CNPJ obrigatório"/>
-                        Inscrição Estadual:
-                        <p:inputText id="insc_estadual" value="#{ClienteController.cliente.inscricaoEstadual}" styleClass="form_tabela"
-                                     required="true" requiredMessage="Campo Inscrição Estadual obrigatório"/>
-                        Endereço:
-                        <p:inputText id="endereco" value="#{ClienteController.cliente.endereco}" styleClass="form_tabela"
-                                     required="true" requiredMessage="Campo Endereço obrigatório"/>
-                        Complemento:
-                        <p:inputText id="complemento" value="#{ClienteController.cliente.complemento}" styleClass="form_tabela"
-                                     required="true" requiredMessage="Campo Complemento obrigatório"/>
-                        Bairro:
-                        <p:inputText id="bairro" value="#{ClienteController.cliente.bairro}" styleClass="form_tabela"
-                                     required="true" requiredMessage="Campo Bairro obrigatório"/>
-                        Cidade:
-                        <p:inputText id="cidade" value="#{ClienteController.cliente.cidade}" styleClass="form_tabela"
-                                     required="true" requiredMessage="Campo Cidade obrigatório"/>
-                        Estado:
-                        <p:inputText id="estado" value="#{ClienteController.cliente.estado}" styleClass="form_tabela"
-                                     required="true" requiredMessage="Campo Estado obrigatório"/>
-                        Cep:
-                        <p:inputText id="cep" value="#{ClienteController.cliente.cep}" styleClass="form_tabela"
-                                     required="true" requiredMessage="Campo Cep obrigatório"/>
-                        Telefone:
-                        <p:inputText id="telefone" value="#{ClienteController.cliente.telefone}" styleClass="form_tabela"
-                                     required="true" requiredMessage="Campo Telefone obrigatório"/>
-                        Telefone Fax:
-                        <p:inputText id="fax" value="#{ClienteController.cliente.fax}" styleClass="form_tabela"
-                                     required="true" requiredMessage="Campo Telefone Fax obrigatório"/>
-                        Observação:
-                        <p:inputTextarea id="observacao" value="#{ClienteController.cliente.observacao}" autoResize="false"
-                                         effectDuration="1000" maxHeight="200" style="width:428px;height:100px;"
-                                         required="true" requiredMessage="Campo Observação obrigatório"/>
+                            <h:panelGroup style="float: left; margin-right: -110px; margin-top: 20px">
+                                <p:commandButton action="#{ClienteController.salvar}" value="Salvar" style="margin-right: 20px"
+                                                 update="growl @form clientes" disabled="#{not(ClienteController.idUsuario eq 0)}"/>
 
-                        <h:panelGroup style="float: left; margin-right: -40px; margin-top: 20px">
-                            <p:commandButton action="#{ClienteController.salvar}" value="Salvar" style="margin-right: 20px"
-                                             update="growl @form" ajax="true" />
+                                <p:commandButton value="Editar" action="#{ClienteController.editar}" style="margin-right: 20px"
+                                                 update="growl @form clientes" disabled="#{ClienteController.idUsuario eq 0}"/>
 
-                            <p:commandButton value="Limpar" type="reset"/>
-                        </h:panelGroup>
+                                <p:commandButton value="Limpar" type="reset"/>
+                                
+                            </h:panelGroup>
 
-                    </h:panelGrid>
+                        </h:panelGrid>
+                    </h:panelGroup>
                 </h:form>
-                </p:panel>
+
             </ui:define>
         </ui:composition>
     </h:body>
