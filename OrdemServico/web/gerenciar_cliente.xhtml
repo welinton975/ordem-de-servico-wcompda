@@ -17,38 +17,45 @@
                     <h1>Gerenciamento de Clientes</h1><br/>
                 </p>
 
-                <h:form id="form">
-                    <p:dataTable var="clientes" value="#{ClienteController.usuarios}" paginator="true" rows="30"
-                                 selection="#{ClienteController.cliente}" selectionMode="single" onRowSelectUpdate="display cliente"
-                                 onRowSelectComplete="clienteDialog.show()" id="tabela">
+                <h:form id="form1">
 
+                    <p:growl id="growl" showDetail="true" life="10000" />
+
+                    <p style="margin-left: 280px; margin-bottom: 20px">
+                        <p:commandButton value="Novo Cliente" action="#{ClienteController.resetCliente}"
+                                         update="tabela cliente form2" ajax="true" oncomplete="clienteDialog.show()" />
+                    </p>
+
+                    <p:dataTable var="clientes" value="#{ClienteController.usuarios}" selection="#{ClienteController.cliente}"
+                                 selectionMode="single" onRowSelectUpdate="cliente form2"
+                                 onRowSelectComplete="clienteDialog.show()" id="tabela" >
 
                         <f:facet name="header">
                             Lista de Clientes
                         </f:facet>
 
-                        <p:column filterBy="#{clientes.nome}" style="height: 35px">
+                        <p:column filterBy="#{clientes.nome}" style="height: 28px">
                             <f:facet name="header">
                                 <h:outputText value="Nome" />
                             </f:facet>
                             <h:outputText value="#{clientes.nome}" />
                         </p:column>
 
-                        <p:column filterBy="#{clientes.contato}" style="height: 35px">
+                        <p:column filterBy="#{clientes.contato}" style="height: 28px">
                             <f:facet name="header">
                                 <h:outputText value="Contato" />
                             </f:facet>
                             <h:outputText value="#{clientes.contato}" />
                         </p:column>
 
-                        <p:column filterBy="#{clientes.cidade}" style="height: 35px">
+                        <p:column filterBy="#{clientes.cidade}" style="height: 28px">
                             <f:facet name="header">
                                 <h:outputText value="Cidade" />
                             </f:facet>
                             <h:outputText value="#{clientes.cidade}" />
                         </p:column>
 
-                        <p:column filterBy="#{clientes.email}" style="height: 35px">
+                        <p:column filterBy="#{clientes.email}" style="height: 28px">
                             <f:facet name="header">
                                 <h:outputText value="E-mail" />
                             </f:facet>
@@ -56,16 +63,17 @@
                         </p:column>
 
                     </p:dataTable>
+                </h:form>
 
-                    <p:growl id="growl" showDetail="true" life="10000" />
-                    
-                    <p:dialog header="Inserir Cliente" widgetVar="clienteDialog" resizable="true"
-                              width="1200" showEffect="explode" hideEffect="explode" appendToBody="false" onCloseUpdate="tabela">
-
+                <h:form id="form2">
+                    <p:dialog widgetVar="clienteDialog" resizable="false"
+                              width="1200" showEffect="explode" hideEffect="explode" appendToBody="false"
+                              onCloseUpdate="form1 tabela">
+                        
                         <h:panelGroup>
 
                             <h:panelGrid id="cliente" columns="2" border="0" cellpadding="5px">
-                                <h:panelGrid columns="2" style="float:left">
+                                <h:panelGrid id="parte1" columns="2" style="float: left">
                                     Nome:
                                     <p:inputText id="nome" value="#{ClienteController.cliente.nome}" styleClass="form_tabela"
                                                  required="true" requiredMessage="Campo Nome obrigatório"/>
@@ -92,7 +100,7 @@
                                                  required="true" requiredMessage="Campo Complemento obrigatório"/>
                                 </h:panelGrid>
 
-                                <h:panelGrid columns="2" style="margin-left: 10px">
+                                <h:panelGrid id="parte2" columns="2" style="margin-left: 10px">
                                     Bairro:
                                     <p:inputText id="bairro" value="#{ClienteController.cliente.bairro}" styleClass="form_tabela"
                                                  required="true" requiredMessage="Campo Bairro obrigatório"/>
@@ -119,12 +127,13 @@
 
                                 <h:panelGroup style="float: left; margin-right: -110px; margin-top: 20px">
                                     <p:commandButton action="#{ClienteController.salvar}" value="Salvar" style="margin-right: 20px"
-                                                     update="growl @form tabela" />
+                                                     update="growl form2 form1 tabela" rendered="#{ClienteController.cliente.id eq 0}" />
 
                                     <p:commandButton value="Editar" action="#{ClienteController.editar}" style="margin-right: 20px"
-                                                     update="growl @form tabela" />
+                                                     update="growl form2 form1 tabela" rendered="#{not (ClienteController.cliente.id eq 0)}"
+                                                     oncomplete="clienteDialog.hide()"/>
 
-                                    <p:commandButton value="Limpar" type="reset"/>
+                                    <p:commandButton value="Limpar" type="reset" rendered="#{ClienteController.cliente.id eq 0}"/>
 
                                 </h:panelGroup>
 
