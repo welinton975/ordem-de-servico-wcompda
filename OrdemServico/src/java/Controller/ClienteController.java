@@ -6,13 +6,10 @@ package Controller;
 
 import Dao.JDBCClienteDao;
 import Model.Cliente;
-import Model.Usuario;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 /**
@@ -21,9 +18,10 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean(name = "ClienteController")
 @ViewScoped
-public final class ClienteController extends UsuarioController {
+public class ClienteController extends UsuarioController {
 
     private Date data;
+    private boolean editando = true;
 
     //private TreeMap<String, String> clienteTree;
     public ClienteController() throws SQLException {
@@ -48,7 +46,8 @@ public final class ClienteController extends UsuarioController {
         System.out.println("Cidade: " + getCliente().getCidade());
         super.salvar();
         setUsuario(new Cliente());
-        //buscarClientes();
+        //editando = true;
+        buscarUsuarios();
     }
 
     public String redirecionar() {
@@ -68,9 +67,20 @@ public final class ClienteController extends UsuarioController {
         return (Cliente) getUsuario();
     }
 
-    public void setCliente(Cliente cliente) {
-        System.out.println("Nome no setCliente: " + cliente.getNome());
+    public void setCliente(Cliente cliente) throws SQLException {
         setUsuario(cliente);
+    }
+
+    public void resetCliente(){
+        //editando = false;
+        //System.out.println("Resetando cliente...");
+        setUsuario(new Cliente());
+        //System.out.println("id = " + getUsuario().getId());
+    }
+
+    public void editando(){
+        System.out.println("Resetando...");
+        editando = true;
     }
 
     /**
@@ -85,5 +95,19 @@ public final class ClienteController extends UsuarioController {
      */
     public void setData(Date data) {
         this.data = data;
+    }
+
+    /**
+     * @return the editando
+     */
+    public boolean isEditando() {
+        return editando;
+    }
+
+    /**
+     * @param editando the editando to set
+     */
+    public void setEditando(boolean editando) {
+        this.editando = editando;
     }
 }

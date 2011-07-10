@@ -8,6 +8,7 @@ import Dao.UsuarioDao;
 import Model.Usuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -22,7 +23,7 @@ public abstract class UsuarioController {
     private UsuarioDao dao;
     private String idUsuario = "0";
     private TreeMap<String, String> clienteTree;
-    private ArrayList<Usuario> usuarios;
+    private List<Usuario> usuarios;
 
     public UsuarioController() throws SQLException {
         usuarios = new ArrayList<Usuario>();
@@ -37,13 +38,14 @@ public abstract class UsuarioController {
     }
 
     public void salvar() throws SQLException {
+        System.out.println("Nome do usuário salvar: " + usuario.getNome());
         dao.inserirUsuario(usuario);
-        setClienteTree(new TreeMap<String, String>());
-        buscarClientes();
+        //setClienteTree(new TreeMap<String, String>());
+        //buscarClientes();
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Cliente inserido com sucesso", ""));
         //setUsuario(null);
-        idUsuario = "0";
+        //idUsuario = "0";
     }
 
     public void editar() throws SQLException {
@@ -136,7 +138,7 @@ public abstract class UsuarioController {
     /**
      * @return the usuarios
      */
-    public ArrayList<Usuario> getUsuarios() throws SQLException {
+    public List<Usuario> getUsuarios() throws SQLException {
         return usuarios;
     }
 

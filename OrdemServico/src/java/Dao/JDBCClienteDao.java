@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class JDBCClienteDao extends JDBCUsuarioDao {
 
     public JDBCClienteDao() throws SQLException {
+        
         super();
     }
 
