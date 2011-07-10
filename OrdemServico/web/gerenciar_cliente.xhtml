@@ -16,15 +16,19 @@
                     <img src="images/user.png" style="float:left; margin-right: 14px; margin-top: -10px"/>
                     <h1>Gerenciamento de Clientes</h1><br/>
                 </p>
+                
+                <h:form id="form0">
+                    <p style="margin-left: 280px; margin-bottom: 20px">
+                        <p:commandButton value="Novo Cliente" action="#{ClienteController.resetCliente}"
+                                         update="tabela cliente form2" ajax="true" oncomplete="clienteDialog.show()" />
+                    </p>
+                </h:form>
 
                 <h:form id="form1">
 
                     <p:growl id="growl" showDetail="true" life="10000" />
 
-                    <p style="margin-left: 280px; margin-bottom: 20px">
-                        <p:commandButton value="Novo Cliente" action="#{ClienteController.resetCliente}"
-                                         update="tabela cliente form2" ajax="true" oncomplete="clienteDialog.show()" />
-                    </p>
+                    
 
                     <p:dataTable var="clientes" value="#{ClienteController.usuarios}" selection="#{ClienteController.cliente}"
                                  selectionMode="single" onRowSelectUpdate="cliente form2"
@@ -68,7 +72,7 @@
                 <h:form id="form2">
                     <p:dialog widgetVar="clienteDialog" resizable="false"
                               width="1200" showEffect="explode" hideEffect="explode" appendToBody="false"
-                              onCloseUpdate="form1 tabela">
+                              onCloseUpdate="tabela cliente">
                         
                         <h:panelGroup>
 
