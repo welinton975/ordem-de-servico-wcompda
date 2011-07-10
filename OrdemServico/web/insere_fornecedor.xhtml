@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "Inserir Clientes" -->
+            <ui:param name="titulo" value="Inserir Peça" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <p style="margin-top: 10px">
+                    <img src="images/user.png" style="float:left; margin-right: 14px; margin-top: -10px"/>
+                    <h1>Cadastro de Fornecedor</h1><br/>
+                </p>
+                <p:panel header="">
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true" life="10000" />
+
+                    <h:panelGrid columns="2" border="0" cellpadding="5px">
+                        Nome:
+                        <p:inputText id="nome" value="#{FornecedorController.fornecedor.nome}" styleClass="form_tabela"
+                                     required="true" requiredMessage="Campo Nome obrigatório"/>
+                        E-mail:
+                        <p:inputText id="email" value="#{FornecedorController.fornecedor.email}" styleClass="form_tabela"
+                                     required="true" requiredMessage="Campo Nome obrigatório"/>
+                        Localização:
+                        <p:inputText id="localizacao" value="#{FornecedorController.fornecedor.localizacao}" styleClass="form_tabela"
+                                     required="true" requiredMessage="Campo Nome obrigatório"/>
+                        <h:panelGroup style="float: left; margin-right: -40px; margin-top: 20px">
+                            <p:commandButton action="#{FornecedorController.salvar()}" value="Salvar" style="margin-right: 20px"
+                                             update="growl @form" ajax="true" />
+
+                            <p:commandButton value="Limpar" type="reset"/>
+                        </h:panelGroup>
+
+                    </h:panelGrid>
+                </h:form>
+                </p:panel>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+                        

@@ -10,6 +10,7 @@ package Model;
  */
 public class Peca {
     
+    private int id;
     private String nome;
     private float preco;
     private int quantidade;
@@ -18,6 +19,7 @@ public class Peca {
      * @return the nome
      */
     public String getNome() {
+        System.out.println("entrou no nome porra!!");
         return nome;
     }
 
@@ -32,6 +34,7 @@ public class Peca {
      * @return the preco
      */
     public float getPreco() {
+        System.out.println("entrou no preço porra!!");
         return preco;
     }
 
@@ -46,6 +49,7 @@ public class Peca {
      * @return the quantidade
      */
     public int getQuantidade() {
+        System.out.println("entrou na qtd porra!!");
         return quantidade;
     }
 
@@ -54,6 +58,21 @@ public class Peca {
      */
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        System.out.println("entrou no id porra!!");
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
 
