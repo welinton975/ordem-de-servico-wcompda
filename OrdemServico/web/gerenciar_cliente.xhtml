@@ -31,7 +31,7 @@
                     
 
                     <p:dataTable var="clientes" value="#{ClienteController.usuarios}" selection="#{ClienteController.cliente}"
-                                 selectionMode="single" onRowSelectUpdate="cliente form2"
+                                 selectionMode="single" onRowSelectUpdate="form2"
                                  onRowSelectComplete="clienteDialog.show()" id="tabela" >
 
                         <f:facet name="header">
@@ -72,7 +72,7 @@
                 <h:form id="form2">
                     <p:dialog widgetVar="clienteDialog" resizable="false"
                               width="1200" showEffect="explode" hideEffect="explode" appendToBody="false"
-                              onCloseUpdate="tabela cliente">
+                              onCloseUpdate="tabela">
                         
                         <h:panelGroup>
 
@@ -131,10 +131,11 @@
 
                                 <h:panelGroup style="float: left; margin-right: -110px; margin-top: 20px">
                                     <p:commandButton action="#{ClienteController.salvar}" value="Salvar" style="margin-right: 20px"
-                                                     update="growl form2 form1 tabela" rendered="#{ClienteController.cliente.id eq 0}" />
+                                                     update="growl form2 form1 tabela" rendered="#{ClienteController.cliente.id eq 0}"
+                                                     oncomplete="clienteDialog.hide()"/>
 
                                     <p:commandButton value="Editar" action="#{ClienteController.editar}" style="margin-right: 20px"
-                                                     update="growl form2 form1 tabela" rendered="#{not (ClienteController.cliente.id eq 0)}"
+                                                     update="growl form2 form1 tabela" rendered="#{not(ClienteController.cliente.id eq 0)}"
                                                      oncomplete="clienteDialog.hide()"/>
 
                                     <p:commandButton value="Limpar" type="reset" rendered="#{ClienteController.cliente.id eq 0}"/>
