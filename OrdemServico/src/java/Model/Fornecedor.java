@@ -9,6 +9,8 @@ package Model;
  * @author arthur
  */
 public class Fornecedor {
+    
+    private int id;
     private String nome;
     private String telefone;
     private String email;
@@ -68,6 +70,20 @@ public class Fornecedor {
      */
     public void setLocalizacao(String localizacao) {
         this.localizacao = localizacao;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
     
     
