@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "Inserir Clientes" -->
+            <ui:param name="titulo" value="Inserir Clientes" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <p style="margin-top: 10px">
+                    <img src="images/pda.png" style="float: left; margin-right: 14px; margin-top: -10px"/>
+                    <h1>Solicitar Ordem de Serviço</h1><br/>
+                </p>
+
+                <h:form id="form">
+
+                    <p:dataTable id="ordens" var="ordem" value="#{OrdemServicoController.ordens}" paginator="true" rows="10"
+                                 rendered="#{not empty(OrdemServicoController.servicos)}" style="margin-top: 20px">
+
+                        <f:facet name="header">
+                            <h:outputText value="Ordens de serviço" />
+                        </f:facet>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cliente" />
+                            </f:facet>
+                            <h:outputText value="#{ordem.cliente.nome}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Status OS" />
+                            </f:facet>
+                            <h:outputText value="#{ordem.status}" />
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

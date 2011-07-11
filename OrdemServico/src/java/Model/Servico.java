@@ -17,6 +17,7 @@ public class Servico {
     private String descricao;
     private float preco;
     private String tempoReparo;
+    private String status;
 
     public Servico() {
         ordemServico = new OrdemServico();
@@ -96,5 +97,19 @@ public class Servico {
      */
     public void setOrdemServico(OrdemServico ordemServico) {
         this.ordemServico = ordemServico;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
