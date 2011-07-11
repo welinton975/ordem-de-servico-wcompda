@@ -18,6 +18,7 @@ public interface UsuarioDao {
     public void inserirUsuario(Usuario usuario) throws SQLException;
     public void editarUsuario(Usuario usuario) throws SQLException;
     public Usuario buscarUsuario(int id) throws SQLException;
+    public Usuario buscarPorEmail(String email) throws SQLException;
     public ArrayList<Usuario> buscarTodos() throws SQLException;
 
 }
