@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -80,5 +81,29 @@ public class JDBCOrdemServicoDao implements OrdemServicoDao {
         os.getCliente().setId(rs.getInt("idCliente"));
         os.setStatus(rs.getString("estado"));
         os.setOrcamento(rs.getFloat("orcamento"));
+    }
+
+    @Override
+    public void excluirOS(int idOrdemServico) throws SQLException {
+        Statement st = conn.createStatement();
+        String sql = "delete from ordem_servico.ordem_servico where idOrdemServico = " + idOrdemServico + "; ";
+        st.executeUpdate(sql);
+        conn.commit();
+    }
+
+    @Override
+    public ArrayList<OrdemServico> buscarTodos() throws SQLException {
+        Statement st = conn.createStatement();
+        ArrayList<OrdemServico> os = new ArrayList<OrdemServico>();
+        String sql = "select idOrdemServico, idCliente, estado, orcamento "
+                + "from ordem_servico;";
+        ResultSet rs = st.executeQuery(sql);
+        while(rs.next()){
+            OrdemServico ordem = new OrdemServico();
+            preencherOS(ordem, rs);
+            os.add(ordem);
+        }
+        conn.commit();
+        return os;
     }
 }

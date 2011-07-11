@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.prime.com.tr/ui">
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:body>
         <!-- esta página utiliza como template o tema "template.xhtml" -->
         <ui:composition template="template.xhtml">
@@ -20,39 +21,92 @@
 
                     <p:growl id="growl" showDetail="false" life="10000" />
 
-                    <p:panel header="Informações sobre o serviço" style="margin-bottom: 20px">
-                        <h:panelGrid columns="2" cellpadding="5px">
+                    <h:panelGroup id="info">
 
-                            Descrição do problema:
-                            <p:inputTextarea id="descricao" value="#{OrdemServicoController.servicoCorrente.descricao}" autoResize="false"
-                                             effectDuration="1000" maxHeight="200" style="width: 428px; height: 100px;"
-                                             required="true" requiredMessage="Campo Descrição do problema obrigatório"/>
+                        <p:panel id="servico" header="Informações sobre o serviço" style="margin-bottom: 20px">
+                            <h:panelGrid columns="2" cellpadding="5px">
 
-                        </h:panelGrid>
-                    </p:panel>
+                                Descrição do problema:
+                                <p:inputTextarea id="descricao" value="#{OrdemServicoController.servicoCorrente.descricao}" autoResize="false"
+                                                 effectDuration="1000" maxHeight="200" style="width: 428px; height: 100px;"
+                                                 required="false" requiredMessage="Campo Descrição do problema obrigatório"/>
 
-                    <p:panel header="Informações sobre o Aparelho">
+                            </h:panelGrid>
+                        </p:panel>
 
-                        <h:panelGrid columns="2" cellpadding="5px">
+                        <p:panel id="aparelho" header="Informações sobre o aparelho">
 
-                            Modelo:
-                            <p:inputText id="modelo" value="#{OrdemServicoController.servicoCorrente.aparelho.modelo}" styleClass="form_tabela"
-                                         required="true" requiredMessage="Campo Modelo obrigatório"/>
-                            Número de série:
-                            <p:inputText id="serie" value="#{OrdemServicoController.servicoCorrente.aparelho.codigo}" styleClass="form_tabela"
-                                         required="true" requiredMessage="Campo Número de série obrigatório"/>
+                            <h:panelGrid columns="2" cellpadding="5px">
 
-                        </h:panelGrid>
+                                Modelo:
+                                <p:inputText id="modelo" value="#{OrdemServicoController.servicoCorrente.aparelho.modelo}" styleClass="form_tabela"
+                                             required="false" requiredMessage="Campo Modelo obrigatório"/>
+                                Número de série:
+                                <p:inputText id="serie" value="#{OrdemServicoController.servicoCorrente.aparelho.codigo}" styleClass="form_tabela"
+                                             required="false" requiredMessage="Campo Número de série obrigatório"/>
 
-                    </p:panel>
+                            </h:panelGrid>
 
+                        </p:panel>
+
+                    </h:panelGroup>
 
                     <p:commandButton value="Concluir" action="#{OrdemServicoController.salvarConclusao}" style="margin-top: 20px"
-                                     update="form growl" disabled="#{OrdemServicoController.concluido}" />
+                                     update="form tabela_servico growl editar" disabled="#{OrdemServicoController.concluido}"
+                                     rendered="#{not OrdemServicoController.editando}"/>
 
                     <p:commandButton value="Novo Serviço" action="#{OrdemServicoController.salvarProximoPasso}" style="margin-top: 20px; margin-left: 20px"
-                                     update="form" disabled="#{OrdemServicoController.concluido}" />
+                                     update="form tabela_servico editar" disabled="#{OrdemServicoController.concluido}"
+                                     rendered="#{not OrdemServicoController.editando}"/>
 
+                    <p:commandButton id="editar" value="Editar" action="#{OrdemServicoController.editarServico}" style="margin-top: 20px;"
+                                     update="form tabela_servico editar" rendered="#{OrdemServicoController.editando}" />
+
+
+                    <p:dataTable id="tabela_servicos" var="servicos" value="#{OrdemServicoController.servicos}" paginator="true" rows="10"
+                                 rendered="#{not empty(OrdemServicoController.servicos)}" style="margin-top: 20px">
+
+                        <f:facet name="header">
+                            <h:outputText value="Serviços da ordem de serviço solicitada" />
+                        </f:facet>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Descrição" />
+                            </f:facet>
+                            <h:outputText value="#{servicos.descricao}" />
+                        </p:column>
+
+                        <p:column style="width:32px">
+                            <p:commandButton update="info tabela_servicos editar" title="Editar" action="#{OrdemServicoController.resetEditando}"
+                                             image="ui-icon ui-icon-pencil" ajax="false">
+                                <f:setPropertyActionListener value="#{servicos}"
+                                                             target="#{OrdemServicoController.servicoCorrente}" />
+                            </p:commandButton>
+                        </p:column>
+
+                        <p:column style="width:32px">
+                            <p:commandButton update="info tabela_servicos dialog" title="Excluir" oncomplete="dialog.show()"
+                                             image="ui-icon ui-icon-trash" ajax="true">
+                                <f:setPropertyActionListener value="#{servicos}"
+                                                             target="#{OrdemServicoController.servicoCorrente}" />
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:dialog id="dialog" header="Excluir" widgetVar="dialog" style="width: 400px; height: 400px" >
+
+                        <h:outputText value="Você tem certeza que quer remover este serviço da sua solicitação de Ordem de Serviço?" />
+
+                        <p style="margin-left: 110px" >
+                            <p:commandButton update="info tabela_servicos" title="Excluir" action="#{OrdemServicoController.excluirServico}"
+                                             value="Excluir" ajax="false" />
+                        </p>
+
+                    </p:dialog>
+
+                    
 
                 </h:form>
 

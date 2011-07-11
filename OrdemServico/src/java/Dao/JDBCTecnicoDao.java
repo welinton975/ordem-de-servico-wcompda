@@ -84,4 +84,5 @@ public class JDBCTecnicoDao extends JDBCUsuarioDao {
         t.setCpf("cpf");
         t.setRg("rg");
     }
+
 }

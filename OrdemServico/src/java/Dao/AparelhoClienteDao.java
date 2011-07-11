@@ -15,8 +15,9 @@ import java.util.ArrayList;
  */
 public interface AparelhoClienteDao {
 
-    public void inserirAparelho(AparelhoCliente aparelho) throws SQLException;
+    public int inserirAparelho(AparelhoCliente aparelho) throws SQLException;
     public void editarAparelho(AparelhoCliente aparelho) throws SQLException;
+    public void excluirAparelho(int idAparelho) throws SQLException;
     public ArrayList<AparelhoCliente> listarTodos() throws SQLException;
 
 }

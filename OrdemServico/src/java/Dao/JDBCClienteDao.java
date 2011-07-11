@@ -119,4 +119,5 @@ public class JDBCClienteDao extends JDBCUsuarioDao {
         c.setFax(rs.getString("fax"));
         c.setObservacao(rs.getString("observacao"));
     }
+
 }
