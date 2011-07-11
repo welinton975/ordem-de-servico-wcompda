@@ -22,6 +22,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -43,6 +45,7 @@ public class OrdemServicoController {
     private int idOS;
     private List<Servico> servicos;
     private ArrayList<OrdemServico> ordens;
+    private HttpSession session;
 
     public OrdemServicoController() throws SQLException {
         ordemServico = new OrdemServico();
@@ -58,10 +61,17 @@ public class OrdemServicoController {
 
     public void salvar() throws SQLException {
         System.out.println("Salvando...");
-        servicoCorrente.getAparelho().getCliente().setId(1);
+        //Capturando atributos de sessão...
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) facesContext.getCurrentInstance().getExternalContext().getRequest();
+        session = request.getSession();
+
+        Cliente clienteSession = (Cliente) session.getAttribute("cliente");
+        System.out.println("Id session: " + clienteSession.getId());
+        servicoCorrente.getAparelho().setCliente(clienteSession);
         servicoCorrente.getTecnico().setId(0);
         getOrdemServico().getServicos().add(servicoCorrente);
-        getOrdemServico().getCliente().setId(1);
+        getOrdemServico().setCliente(clienteSession);
         if (passos == 0) {
             idOS = daoOs.inserirOS(getOrdemServico());
         }
@@ -88,7 +98,7 @@ public class OrdemServicoController {
         daoServico.excluirServico(servicoCorrente.getIdServico());
         daoAparelho.excluirAparelho(servicoCorrente.getAparelho().getIdAparelho());
         servicos.remove(servicoCorrente);
-        if(servicos.isEmpty()){
+        if (servicos.isEmpty()) {
             daoOs.excluirOS(getOrdemServico().getIdOrdemServico());
         }
         servicoCorrente = new Servico();
@@ -122,7 +132,7 @@ public class OrdemServicoController {
             //ordemServico = new OrdemServico();
             concluido = true;
         }
-        if(servicos.isEmpty()){
+        if (servicos.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Pelo menos um serviço deve ser solicitado para que a ordem de serviço seja concluída", ""));
             //ordemServico = new OrdemServico();
@@ -132,11 +142,11 @@ public class OrdemServicoController {
 
     }
 
-    public void buscarTodasOS() throws SQLException{
+    public void buscarTodasOS() throws SQLException {
         ordens = daoOs.buscarTodos();
-        for(int i = 0; i < ordens.size(); i++){
+        for (int i = 0; i < ordens.size(); i++) {
             ordens.get(i).setServicos(daoServico.buscarPorOs(ordens.get(i).getIdOrdemServico()));
-            ordens.get(i).setCliente((Cliente)(daoCliente.buscarUsuario(ordens.get(i).getCliente().getId())));
+            ordens.get(i).setCliente((Cliente) (daoCliente.buscarUsuario(ordens.get(i).getCliente().getId())));
         }
     }
 
@@ -146,12 +156,12 @@ public class OrdemServicoController {
 
     public void editarOsCompleta() throws SQLException {
         editar();
-        for(int i = 0; i < ordemServico.getServicos().size(); i++){
+        for (int i = 0; i < ordemServico.getServicos().size(); i++) {
             ordemServico.getServicos().get(i).getOrdemServico().setIdOrdemServico(ordemServico.getIdOrdemServico());
             daoServico.editarServico(ordemServico.getServicos().get(i));
         }
-         FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Ordem de Serviço alterada com sucesso", ""));
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Ordem de Serviço alterada com sucesso", ""));
         editando = false;
     }
 

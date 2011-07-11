@@ -120,4 +120,21 @@ public class JDBCClienteDao extends JDBCUsuarioDao {
         c.setObservacao(rs.getString("observacao"));
     }
 
+    @Override
+    public Usuario buscarPorEmail(String email) throws SQLException {
+        Statement st = conn.createStatement();
+        String sql = "select idUsuario, nome, email, senha, data_cadastro, contato, cnpj, insc_estadual, endereco, complemento, bairro, "
+                + "cidade, estado, cep, telefone, fax, observacao "
+                + "from usuario, cliente "
+                + "where email = '" + email + "' and cliente.idCliente = usuario.idUsuario;";
+        ResultSet rs = st.executeQuery(sql);
+        if(!rs.next()){
+            return null;
+        }
+        Cliente c = new Cliente();
+        preencherUsuario(c, rs);
+        conn.commit();
+        return c;
+    }
+
 }

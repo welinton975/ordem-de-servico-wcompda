@@ -85,4 +85,9 @@ public class JDBCTecnicoDao extends JDBCUsuarioDao {
         t.setRg("rg");
     }
 
+    @Override
+    public Usuario buscarPorEmail(String email) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
