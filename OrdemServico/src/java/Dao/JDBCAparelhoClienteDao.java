@@ -31,12 +31,14 @@ public class JDBCAparelhoClienteDao implements AparelhoClienteDao {
         Statement stAutoIncrement = conn.createStatement();
         ResultSet rsAutoIncrement = stAutoIncrement.executeQuery("show table status like 'aparelho_cliente'");
         rsAutoIncrement.next();
+        System.out.println("Id no dao: " + aparelho.getCliente().getId());
         proximoId = rsAutoIncrement.getInt("Auto_increment");
         String sql = "insert into aparelho_cliente values (null, "
                 + "idCliente = " + aparelho.getCliente().getId() + ", "
                 + "modelo = '" + aparelho.getModelo() + "', "
                 + "codigo = '" + aparelho.getCodigo() + "'); ";
         st.executeUpdate(sql);
+        System.out.println(sql);
         conn.commit();
         return proximoId;
     }

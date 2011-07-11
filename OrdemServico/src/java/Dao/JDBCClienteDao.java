@@ -28,7 +28,7 @@ public class JDBCClienteDao extends JDBCUsuarioDao {
         String sql = "select idUsuario, nome, email, senha, data_cadastro, contato, cnpj, insc_estadual, endereco, complemento, bairro, "
                 + "cidade, estado, cep, telefone, fax, observacao "
                 + "from usuario, cliente "
-                + "where cliente.idCliente = " + id + " and cliente.idCliente = usuario.idUsuario";
+                + "where cliente.idCliente = " + id + " and cliente.idCliente = usuario.idUsuario;";
         ResultSet rs = st.executeQuery(sql);
         rs.next();
         Cliente c = new Cliente();

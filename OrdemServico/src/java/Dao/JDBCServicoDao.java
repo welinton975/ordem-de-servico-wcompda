@@ -79,12 +79,12 @@ public class JDBCServicoDao implements ServicoDao {
     @Override
     public void preencherServico(Servico s, ResultSet rs) throws SQLException {
         s.setIdServico(rs.getInt("idServico"));
-        s.getOrdemServico().setIdOrdemServico(rs.getInt("idOrdermServico"));
+        s.getOrdemServico().setIdOrdemServico(rs.getInt("idOrdemServico"));
         s.getAparelho().setIdAparelho(rs.getInt("idAparelhoCliente"));
         s.getTecnico().setId(rs.getInt("idTecnico"));
         s.setDescricao(rs.getString("descricao"));
         s.setPreco(rs.getFloat("preco"));
-        s.setTempoReparo(rs.getString("tempo_reparto"));
+        s.setTempoReparo(rs.getString("tempo_reparo"));
         s.setStatus(rs.getString("status"));
     }
 

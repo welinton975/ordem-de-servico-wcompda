@@ -41,12 +41,12 @@ public class JDBCOrdemServicoDao implements OrdemServicoDao {
     @Override
     public void editarOS(OrdemServico os) throws SQLException {
         Statement st = conn.createStatement();
-        String sql = "update ordem_servico set estado =" + os.getStatus() + ","
-                + " orcamento =" + os.getOrcamento()
-                + " where ordem_servico.idOrdemServico =" + os.getIdOrdemServico() + " and"
-                + " ordem_servico.idCliente =" + os.getCliente().getId()
-                + " where ordem_servico.idOrdemServico =" + os.getIdOrdemServico() + ";";
-        st.executeQuery(sql);
+        String sql = "update ordem_servico set estado = '" + os.getStatus() + "',"
+                + " orcamento = " + os.getOrcamento() + ", "
+                + " ordem_servico.idOrdemServico = " + os.getIdOrdemServico() + ", "
+                + " ordem_servico.idCliente = " + os.getCliente().getId()
+                + " where ordem_servico.idOrdemServico = " + os.getIdOrdemServico() + ";";
+        st.executeUpdate(sql);
         conn.commit();
     }
 
