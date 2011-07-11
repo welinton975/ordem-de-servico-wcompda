@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:body>
+        <!-- esta página utiliza como template o tema "template.xhtml" -->
+        <ui:composition template="template.xhtml">
+            <!-- O titulo desta página é "Inserir Clientes" -->
+            <ui:param name="titulo" value="Inserir Clientes" />
+            <!-- O que foi informado como "conteúdo" no template deve ser preenchido com isto: -->
+            <ui:define name="conteudo">
+                <p style="margin-top: 10px">
+                    <img src="images/pda.png" style="float: left; margin-right: 14px; margin-top: -10px"/>
+                    <h1>Solicitar Ordem de Serviço</h1><br/>
+                </p>
+
+                <h:form id="form">
+
+                    <p:growl id="growl" showDetail="false" life="10000" />
+
+                    <p:panel header="Informações sobre o serviço" style="margin-bottom: 20px">
+                        <h:panelGrid columns="2" cellpadding="5px">
+
+                            Descrição do problema:
+                            <p:inputTextarea id="descricao" value="#{OrdemServicoController.servicoCorrente.descricao}" autoResize="false"
+                                             effectDuration="1000" maxHeight="200" style="width: 428px; height: 100px;"
+                                             required="true" requiredMessage="Campo Descrição do problema obrigatório"/>
+
+                        </h:panelGrid>
+                    </p:panel>
+
+                    <p:panel header="Informações sobre o Aparelho">
+
+                        <h:panelGrid columns="2" cellpadding="5px">
+
+                            Modelo:
+                            <p:inputText id="modelo" value="#{OrdemServicoController.servicoCorrente.aparelho.modelo}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo Modelo obrigatório"/>
+                            Número de série:
+                            <p:inputText id="serie" value="#{OrdemServicoController.servicoCorrente.aparelho.codigo}" styleClass="form_tabela"
+                                         required="true" requiredMessage="Campo Número de série obrigatório"/>
+
+                        </h:panelGrid>
+
+                    </p:panel>
+
+
+                    <p:commandButton value="Concluir" action="#{OrdemServicoController.salvarConclusao}" style="margin-top: 20px"
+                                     update="form growl" disabled="#{OrdemServicoController.concluido}" />
+
+                    <p:commandButton value="Novo Serviço" action="#{OrdemServicoController.salvarProximoPasso}" style="margin-top: 20px; margin-left: 20px"
+                                     update="form" disabled="#{OrdemServicoController.concluido}" />
+
+
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
