@@ -36,7 +36,7 @@ public class PecaController{
         System.out.println("entrou no SALVARR!");
         dao.inserirPeca(peca);
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO,"Peça inserido com sucesso!",""));
+                new FacesMessage(FacesMessage.SEVERITY_INFO,"Peça inserida com sucesso!",""));
     
     }
     
