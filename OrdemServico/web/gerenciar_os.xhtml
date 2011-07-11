@@ -14,17 +14,26 @@
             <ui:define name="conteudo">
                 <p style="margin-top: 10px">
                     <img src="images/pda.png" style="float: left; margin-right: 14px; margin-top: -10px"/>
-                    <h1>Solicitar Ordem de Serviço</h1><br/>
+                    <h1>Gerenciar Ordens de Serviço</h1><br/>
                 </p>
 
                 <h:form id="form">
 
+                     <p:growl id="growl" showDetail="false" life="10000" />
+
                     <p:dataTable id="ordens" var="ordem" value="#{OrdemServicoController.ordens}" paginator="true" rows="10"
-                                 rendered="#{not empty(OrdemServicoController.servicos)}" style="margin-top: 20px">
+                                 style="margin-top: 20px">
 
                         <f:facet name="header">
                             <h:outputText value="Ordens de serviço" />
                         </f:facet>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Código OS" />
+                            </f:facet>
+                            <h:outputText value="#{ordem.idOrdemServico}" />
+                        </p:column>
 
                         <p:column>
                             <f:facet name="header">
@@ -40,7 +49,90 @@
                             <h:outputText value="#{ordem.status}" />
                         </p:column>
 
+                        <p:column style="width:32px">
+                            <p:commandButton update="servicos" title="Editar" action="#{OrdemServicoController.resetEditando}"
+                                             image="ui-icon ui-icon-pencil" ajax="false">
+                                <f:setPropertyActionListener value="#{ordem}"
+                                                             target="#{OrdemServicoController.ordemServico}" />
+                            </p:commandButton>
+                        </p:column>
+
                     </p:dataTable>
+
+                    <p:panel id="os" header="Dados da ordem de serviço" style="margin-top: 20px"
+                             rendered="#{OrdemServicoController.editando}">
+
+                        <h:panelGrid columns="2" cellpadding="5px" style="margin-top: 10px">
+
+                            Código:
+                            <h:outputText id="modelo" value="#{OrdemServicoController.ordemServico.idOrdemServico}" styleClass="form_tabela" />
+
+                            Status:
+                            <p:inputText id="serie" value="#{OrdemServicoController.ordemServico.status}" styleClass="form_tabela" />
+
+                        </h:panelGrid>
+
+                        <p:dataTable var="servico" value="#{OrdemServicoController.ordemServico.servicos}" id="servicos"
+                                     rendered="#{OrdemServicoController.editando}" style="margin-top: 10px">
+
+                            <f:facet name="header">
+                                Serviços
+                            </f:facet>
+
+                            <p:column headerText="Descrição" style="width:150px">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{servico.descricao}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{servico.descricao}" style="width:100%"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Preço" style="width:150px">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{servico.preco}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{servico.preco}" style="width:100%"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Tempo de reparo" style="width:150px">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{servico.tempoReparo}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{servico.tempoReparo}" style="width:100%"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Status" style="width:150px">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{servico.status}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{servico.status}" style="width:100%"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Editar">
+                                <p:rowEditor />
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:panel>
+
+                    <p:commandButton update="os ordens growl" action="#{OrdemServicoController.editarOsCompleta}"
+                                     value="Confirmar alterações" ajax="false" style="margin-top: 20px"
+                                     rendered="#{OrdemServicoController.editando}"/>
 
                 </h:form>
 
