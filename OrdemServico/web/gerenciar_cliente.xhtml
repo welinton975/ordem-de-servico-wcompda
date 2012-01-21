@@ -32,34 +32,34 @@
 
                     <p:dataTable var="clientes" value="#{ClienteController.usuarios}" selection="#{ClienteController.cliente}"
                                  selectionMode="single" onRowSelectUpdate="form2"
-                                 onRowSelectComplete="clienteDialog.show()" id="tabela" >
+                                 onRowSelectComplete="clienteDialog.show()" rows="10" paginator="true" id="tabela" >
 
                         <f:facet name="header">
                             Lista de Clientes
                         </f:facet>
 
-                        <p:column filterBy="#{clientes.nome}" style="height: 28px">
+                        <p:column style="height: 28px">
                             <f:facet name="header">
                                 <h:outputText value="Nome" />
                             </f:facet>
                             <h:outputText value="#{clientes.nome}" />
                         </p:column>
 
-                        <p:column filterBy="#{clientes.contato}" style="height: 28px">
+                        <p:column style="height: 28px">
                             <f:facet name="header">
                                 <h:outputText value="Contato" />
                             </f:facet>
                             <h:outputText value="#{clientes.contato}" />
                         </p:column>
 
-                        <p:column filterBy="#{clientes.cidade}" style="height: 28px">
+                        <p:column style="height: 28px">
                             <f:facet name="header">
                                 <h:outputText value="Cidade" />
                             </f:facet>
                             <h:outputText value="#{clientes.cidade}" />
                         </p:column>
 
-                        <p:column filterBy="#{clientes.email}" style="height: 28px">
+                        <p:column style="height: 28px">
                             <f:facet name="header">
                                 <h:outputText value="E-mail" />
                             </f:facet>

@@ -122,9 +122,9 @@ public class OrdemServicoController {
     }
 
     public void salvarConclusao() throws SQLException {
-        if (servicoCorrente.getIdServico() > 0) {
-            salvar();
-        }
+        //if (servicoCorrente.getIdServico() > 0) {
+        salvar();
+        //}
         if (servicos.size() > 0) {
             //salvar();
             FacesContext.getCurrentInstance().addMessage(null,
